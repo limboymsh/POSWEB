@@ -20,3 +20,4 @@ namespace Persistence.Models
         public DateTime? UpdatedOn { get; set; }
     }
 }
+

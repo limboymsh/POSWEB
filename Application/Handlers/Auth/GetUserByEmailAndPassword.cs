@@ -27,7 +27,7 @@ namespace Application.Handlers.Auth
             }
             public async Task<User> Handle(GetUsersByEmailAndPasswordQuery request, CancellationToken cancellationToken)
             {
-                User user = await dbContext.User.SingleOrDefaultAsync(x => x.Email == request.Email, cancellationToken);
+                User user = await dbContext.Users.SingleOrDefaultAsync(x => x.Email == request.Email, cancellationToken);
                 if (user != null && request.Pass == user.Password)
                 {
                     return user;

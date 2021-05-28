@@ -19,11 +19,13 @@ namespace WebUI.Controllers
         {
             this.jwtAuthenticationManager = jwtAuthenticationManager;
         }
-        
-        [HttpGet]
-        public IActionResult Get()
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("/register")]
+        public IActionResult Register([FromBody] UserRegisterDTO user)
         {
-            return Ok("sdfklj");
+            return Ok(user);
         }
 
         [AllowAnonymous]

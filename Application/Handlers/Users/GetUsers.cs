@@ -25,7 +25,7 @@ namespace Application.Handlers.Users
 
             public async Task<List<User>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
             {
-                var res = await dbContext.User.ToListAsync();
+                var res = await dbContext.Users.ToListAsync();
                 return res;
             }
         }

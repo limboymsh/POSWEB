@@ -6,6 +6,6 @@ namespace Application.Common.Interfaces
 {
     public interface IPOSDbContext
     {
-        DbSet<User> User { get; set; }
+        DbSet<User> Users { get; set; }
     }
 }

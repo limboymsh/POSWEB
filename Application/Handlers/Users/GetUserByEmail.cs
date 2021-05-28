@@ -27,7 +27,7 @@ namespace Application.Handlers.Users
 
             public async Task<User> Handle(GetUserByEmaliQuery request, CancellationToken cancellationToken)
             {
-                return await dbContext.User.SingleOrDefaultAsync(x => x.Email == request.Email);
+                return await dbContext.Users.SingleOrDefaultAsync(x => x.Email == request.Email);
             }
         }
     }

@@ -31,12 +31,13 @@ namespace WebUI.Services
         {
             try
             {
-
+                
                 if (userCred == null)
                 {
                     return null;
                 }
                 var user = await mediator.Send(new GetUserByEmailAndPassword.GetUsersByEmailAndPasswordQuery { Email = userCred.Email, Pass = userCred.Password });
+                Console.WriteLine("''''''''''''''''" + user.ToString());
                 //return response == null ? Ok("Not Found") : Ok(response);*/
                 string token = createToken(user);
                 return token;

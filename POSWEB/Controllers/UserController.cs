@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,12 +29,14 @@ namespace WebUI.Controllers
         }
 
         [HttpGet("{email}")]
+
         public async Task<IActionResult> GetUserByEmail(string email)
         {
             var response = await mediator.Send(new GetUserByEmail.GetUserByEmaliQuery { Email = email });
-            
-            return response == null ? Ok("Not Found") : Ok(response);
+            Console.WriteLine("header - -====== " + Request.Headers);
+            if (response == null)
+                return NotFound();
+            return Ok(response);
         }
-
     }
 }

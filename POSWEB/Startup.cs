@@ -64,7 +64,6 @@ namespace POSWEB
 
             services.AddScoped<IJwtAuthenticationManager,JwtAuthenticationManager>();
 
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,7 +88,8 @@ namespace POSWEB
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "CQRS with MediatR - Example API v1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "POS API v1");
+                
             });
         }
     }
