@@ -18,6 +18,9 @@
 
   <ItemGroup>
     <Folder Include="Handlers\Auth\commands\" />
+    <Folder Include="Handlers\Inventories\Commands\" />
+    <Folder Include="Handlers\NewFolder\Commands\" />
+    <Folder Include="Handlers\NewFolder\Queries\" />
   </ItemGroup>
 
 </Project>

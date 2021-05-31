@@ -5,19 +5,18 @@ using System.Collections.Generic;
 // If you have enabled NRTs for your project, then un-comment the following line:
 // #nullable disable
 
-namespace Persistence.Models
+namespace Domain.Entities
 {
-    public partial class User
+    public partial class Role
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Pin { get; set; }
-        public string Password { get; set; }
-        public string Notes { get; set; }
+        public Guid Id { get; set; }
+        public Guid CompanyId { get; set; }
+        public Guid? OutletId { get; set; }
+        public string RoleName { get; set; }
+        public byte? IsActive { get; set; }
+        public Guid? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }
+        public Guid? UpdatedBy { get; set; }
         public DateTime? UpdatedOn { get; set; }
     }
 }
-

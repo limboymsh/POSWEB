@@ -1,4 +1,4 @@
-﻿using Application.Handlers.Users;
+﻿using Application.Handlers.Users.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace WebUI.Controllers
 {
-    [Authorize]
+    /*[Authorize]*/
     [ApiController]
     [Route("api/[controller]")]
     public class UserController : ControllerBase
@@ -21,6 +21,7 @@ namespace WebUI.Controllers
         {
             this.mediator = mediator;
         }
+        
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {

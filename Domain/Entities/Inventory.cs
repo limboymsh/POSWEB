@@ -7,18 +7,22 @@ using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-    public partial class User
+    public partial class Inventory
     {
         public Guid Id { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Email { get; set; }
+        public Guid CompanyId { get; set; }
+        public Guid OutletId { get; set; }
+        public Guid InventoryCategoryId { get; set; }
         public string Name { get; set; }
-        public string Password { get; set; }
-        public string Pin { get; set; }
-        public string Notes { get; set; }
+        public Guid? PromoId { get; set; }
+        public Guid? DiscountId { get; set; }
+        public int Stock { get; set; }
+        public int IsActive { get; set; }
+        public int IsServices { get; set; }
         public Guid CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
-        public Guid UpdatedBy { get; set; }
+        public Guid UpdateBy { get; set; }
         public DateTime UpdatedOn { get; set; }
+        
     }
 }

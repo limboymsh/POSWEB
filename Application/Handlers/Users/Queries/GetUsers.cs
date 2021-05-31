@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Application.Handlers.Users
+namespace Application.Handlers.Users.Queries
 {
     public class GetUsers
     {
@@ -25,7 +25,7 @@ namespace Application.Handlers.Users
 
             public async Task<List<User>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
             {
-                var res = await dbContext.Users.ToListAsync();
+                var res = await dbContext.User.ToListAsync();
                 return res;
             }
         }

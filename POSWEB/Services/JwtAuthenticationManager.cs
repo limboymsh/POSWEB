@@ -45,7 +45,7 @@ namespace WebUI.Services
             } catch(Exception ex)
             {
                 var user = await mediator.Send(new GetUserByEmailAndPassword.GetUsersByEmailAndPasswordQuery { Email = userCred.Email, Pass = userCred.Password });
-                throw;
+                throw ex;
             }
         }
 

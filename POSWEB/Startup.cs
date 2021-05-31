@@ -2,7 +2,8 @@ using System.Reflection;
 using System.Text;
 using Application;
 using Application.Common.Interfaces;
-using Application.Handlers.Users;
+using Application.Handlers.Users.Queries;
+using Application.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Persistence;
 using WebUI.Services;
@@ -35,8 +37,8 @@ namespace POSWEB
             services.AddMediatR(typeof(GetUsers).GetTypeInfo().Assembly);
             services.AddEntityFrameworkSqlServer();
             services.AddDbContext<IPOSDbContext, POSDbContext>();
+            services.AddScoped<InventoryCategoryRepository>();
             services.AddSwaggerGen();
-
 
             // Configure AppConfig
             var appConfig = Configuration.GetSection("Config");
@@ -91,6 +93,7 @@ namespace POSWEB
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "POS API v1");
                 
             });
+
         }
     }
 }
