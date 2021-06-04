@@ -1,12 +1,10 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Interfaces;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage;
 
 // Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
@@ -34,15 +32,24 @@ namespace Persistence
         public virtual DbSet<OrderDeduction> OrderDeduction { get; set; }
         public virtual DbSet<OrderDetail> OrderDetail { get; set; }
         public virtual DbSet<OrderTable> OrderTable { get; set; }
-        public virtual DbSet<OrderType> OrderType { get; set; }
+        public virtual DbSet<OtherTransaction> OtherTransaction { get; set; }
+
         public virtual DbSet<Reservation> Reservation { get; set; }
         public virtual DbSet<ReservationDetail> ReservationDetail { get; set; }
         public virtual DbSet<ReservationTable> ReservationTable { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<RoleModule> RoleModule { get; set; }
+        public virtual DbSet<Table> Table { get; set; }
+        public virtual DbSet<TableDetail> TableDetail { get; set; }
+        public virtual DbSet<Transaction> Transaction { get; set; }
+        public virtual DbSet<TransactionDetail> TransactionDetail { get; set; }
+        public virtual DbSet<TransactionDetailDiscount> TransactionDetailDiscount { get; set; }
+        public virtual DbSet<TransactionDetailPromos> TransactionDetailPromos { get; set; }
+        public virtual DbSet<TransactionExtraCost> TransactionExtraCost { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserOutlet> UserOutlet { get; set; }
         public virtual DbSet<UserRole> UserRole { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -52,8 +59,6 @@ namespace Persistence
                 optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=POS;Trusted_Connection=True;");
             }
         }
-
-       
 
         public async Task<IDbContextTransaction> BeginTransactionAsync(CancellationToken cancellationToken = default)
         {
@@ -130,5 +135,20 @@ namespace Persistence
                 }
             }
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Inventory>(entity =>
+            {
+                entity.HasIndex(e => e.InventoryCategoryId);
+
+                entity.HasOne(d => d.InventoryCategory)
+                    .WithMany(p => p.Inventory)
+                    .HasForeignKey(d => d.InventoryCategoryId);
+            });
+
+            OnModelCreatingPartial(modelBuilder);
+        }
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

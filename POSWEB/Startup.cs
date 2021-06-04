@@ -2,8 +2,10 @@ using System.Reflection;
 using System.Text;
 using Application;
 using Application.Common.Interfaces;
+using Application.Common.Mappings;
 using Application.Handlers.Users.Queries;
 using Application.Repositories;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -11,7 +13,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Persistence;
 using WebUI.Services;
@@ -35,9 +36,13 @@ namespace POSWEB
             services.AddMediatR(typeof(Startup).Assembly);
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddMediatR(typeof(GetUsers).GetTypeInfo().Assembly);
+            services.AddAutoMapper(new Assembly[] { typeof(AutoMapperProfile).GetTypeInfo().Assembly });
             services.AddEntityFrameworkSqlServer();
             services.AddDbContext<IPOSDbContext, POSDbContext>();
-            services.AddScoped<InventoryCategoryRepository>();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+
             services.AddSwaggerGen();
 
             // Configure AppConfig
@@ -45,7 +50,6 @@ namespace POSWEB
             services.Configure<AppSetting>(appConfig);
             var appSetting = appConfig.Get<AppSetting>();
             services.AddSingleton(x => appSetting);
-
 
             services.AddAuthentication(x =>
             {
@@ -66,6 +70,10 @@ namespace POSWEB
 
             services.AddScoped<IJwtAuthenticationManager,JwtAuthenticationManager>();
 
+            // Configure Repositories
+            services.AddScoped<InventoryRepository>();
+            services.AddScoped<OrderRepository>();
+            services.AddScoped<TransactionRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

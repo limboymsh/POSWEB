@@ -9,7 +9,7 @@ namespace Domain.Entities
 {
     public partial class OrderDeduction
     {
-        public Guid? Id { get; set; }
+        public Guid Id { get; set; }
         public Guid? OrderId { get; set; }
         public Guid? PromoId { get; set; }
         public Guid? DiscountId { get; set; }

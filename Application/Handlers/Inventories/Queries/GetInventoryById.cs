@@ -1,10 +1,11 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Models;
+using Application.Repositories;
+using AutoMapper;
 using Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,23 +13,27 @@ namespace Application.Handlers.Inventories.Queries
 {
     public class GetInventoryById
     {
-        public class Query : IRequest<Inventory>
+        public class Query : IRequest<InventoryModel>
         {
             public Guid Id { get; set; }
         }
 
-        public class handler : IRequestHandler<Query, Inventory>
+        public class Handler : IRequestHandler<Query, InventoryModel>
         {
-            private readonly IPOSDbContext dbContext;
+            private readonly InventoryRepository repo;
+            private readonly IMapper mapper;
 
-            public handler(IPOSDbContext dbContext)
+            public Handler(InventoryRepository repo, IMapper mapper)
             {
-                this.dbContext = dbContext;
+                this.repo = repo;
+                this.mapper = mapper;
             }
-            public async Task<Inventory> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<InventoryModel> Handle(Query request, CancellationToken cancellationToken)
             {
-                var inventory = await dbContext.Inventory.SingleOrDefaultAsync(x => x.Id == request.Id);
-                return inventory;
+                var inventory = await repo.GetInventoryById(request.Id);
+                
+                var resources = mapper.Map<Inventory, InventoryModel>(inventory);
+                return resources;
             }
         }
     }

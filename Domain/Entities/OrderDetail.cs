@@ -11,12 +11,10 @@ namespace Domain.Entities
     {
         public Guid Id { get; set; }
         public Guid OrderId { get; set; }
-        public Guid InventoryId { get; set; }
-        public Guid InventoryCategoryId { get; set; }
-        public Guid DiscountId { get; set; }
-        public decimal Price { get; set; }
         public int Quantity { get; set; }
         public decimal TotalPrice { get; set; }
-        public int PromoId { get; set; }
+        public Guid InventoryId { get; set; }
+        public Inventory Inventory { get; set; }
+       
     }
 }

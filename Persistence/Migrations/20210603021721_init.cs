@@ -15,16 +15,16 @@ namespace Persistence.Migrations
                     CompanyId = table.Column<Guid>(nullable: false),
                     OutletId = table.Column<Guid>(nullable: false),
                     InventoryCategoryId = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(unicode: false, maxLength: 100, nullable: false),
+                    Name = table.Column<string>(nullable: true),
                     PromoId = table.Column<Guid>(nullable: true),
                     DiscountId = table.Column<Guid>(nullable: true),
                     Stock = table.Column<int>(nullable: false),
                     IsActive = table.Column<int>(nullable: false),
                     IsServices = table.Column<int>(nullable: false),
                     CreatedBy = table.Column<Guid>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
                     UpdateBy = table.Column<Guid>(nullable: false),
-                    UpdatedOn = table.Column<DateTime>(type: "datetime", nullable: false)
+                    UpdatedOn = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,16 +41,17 @@ namespace Persistence.Migrations
                     InventoryId = table.Column<Guid>(nullable: false),
                     InventoryCategoryId = table.Column<Guid>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
-                    Note = table.Column<string>(unicode: false, maxLength: 500, nullable: true),
+                    Note = table.Column<string>(nullable: true),
                     IsReduce = table.Column<byte>(nullable: false),
                     IsIncrease = table.Column<byte>(nullable: false),
                     CreatedBy = table.Column<Guid>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
                     UpdateBy = table.Column<Guid>(nullable: false),
-                    UpdateOn = table.Column<DateTime>(type: "datetime", nullable: false)
+                    UpdateOn = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_InventoryAdjustment", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -60,52 +61,53 @@ namespace Persistence.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     CompanyId = table.Column<Guid>(nullable: false),
                     OutletId = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(unicode: false, maxLength: 100, nullable: false),
-                    CreatedOn = table.Column<Guid>(nullable: false),
-                    CreatedBy = table.Column<DateTime>(type: "datetime", nullable: false),
-                    UpdatedOn = table.Column<Guid>(nullable: false),
-                    UpdatedBy = table.Column<DateTime>(type: "datetime", nullable: false)
+                    Name = table.Column<string>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<Guid>(nullable: false),
+                    UpdatedOn = table.Column<DateTime>(nullable: false),
+                    UpdatedBy = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_InventoryCategory", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Order",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: true),
+                    Id = table.Column<Guid>(nullable: false),
                     CompanyId = table.Column<Guid>(nullable: true),
-                    OrderTypeId = table.Column<Guid>(nullable: true),
+                    OrderTypeId = table.Column<byte>(nullable: true),
                     OutletId = table.Column<Guid>(nullable: true),
                     ReservationId = table.Column<Guid>(nullable: true),
                     OtherTransactionId = table.Column<Guid>(nullable: true),
                     TableId = table.Column<Guid>(nullable: true),
-                    RoomId = table.Column<Guid>(nullable: true),
                     MemberId = table.Column<Guid>(nullable: true),
                     PaymentStatus = table.Column<byte>(nullable: true),
                     Status = table.Column<byte>(nullable: true),
                     Code = table.Column<Guid>(nullable: true),
-                    Price = table.Column<decimal>(type: "money", nullable: true),
-                    IsDeduction = table.Column<byte>(nullable: true),
-                    TotalPrice = table.Column<decimal>(type: "money", nullable: true),
-                    IssueDate = table.Column<DateTime>(type: "datetime", nullable: true),
-                    Address = table.Column<string>(unicode: false, maxLength: 100, nullable: true),
-                    Note = table.Column<string>(unicode: false, maxLength: 200, nullable: true),
+                    Price = table.Column<decimal>(nullable: true),
+                    IsDeduction = table.Column<bool>(nullable: true),
+                    TotalPrice = table.Column<decimal>(nullable: true),
+                    IssueDate = table.Column<DateTime>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
+                    Note = table.Column<string>(nullable: true),
                     CreatedBy = table.Column<Guid>(nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: true),
                     UpdatedBy = table.Column<Guid>(nullable: true),
-                    UpdatedOn = table.Column<DateTime>(type: "datetime", nullable: true)
+                    UpdatedOn = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_Order", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "OrderDeduction",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: true),
+                    Id = table.Column<Guid>(nullable: false),
                     OrderId = table.Column<Guid>(nullable: true),
                     PromoId = table.Column<Guid>(nullable: true),
                     DiscountId = table.Column<Guid>(nullable: true),
@@ -115,6 +117,7 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_OrderDeduction", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -126,39 +129,14 @@ namespace Persistence.Migrations
                     InventoryId = table.Column<Guid>(nullable: false),
                     InventoryCategoryId = table.Column<Guid>(nullable: false),
                     DiscountId = table.Column<Guid>(nullable: false),
-                    Price = table.Column<decimal>(type: "money", nullable: false),
+                    Price = table.Column<decimal>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "money", nullable: false),
+                    TotalPrice = table.Column<decimal>(nullable: false),
                     PromoId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OrderDetail", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OrderTable",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    OrderId = table.Column<Guid>(nullable: false),
-                    RoomId = table.Column<Guid>(nullable: false),
-                    TableId = table.Column<Guid>(nullable: false),
-                    Status = table.Column<byte>(nullable: false)
-                },
-                constraints: table =>
-                {
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OrderType",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: true),
-                    Name = table.Column<string>(unicode: false, maxLength: 50, nullable: true)
-                },
-                constraints: table =>
-                {
                 });
 
             migrationBuilder.CreateTable(
@@ -170,18 +148,19 @@ namespace Persistence.Migrations
                     DiscountId = table.Column<Guid>(nullable: false),
                     OutletId = table.Column<Guid>(nullable: false),
                     Code = table.Column<Guid>(nullable: true),
-                    IssueDate = table.Column<DateTime>(type: "datetime", nullable: false),
-                    FromDate = table.Column<DateTime>(type: "datetime", nullable: false),
-                    ToDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    IssueDate = table.Column<DateTime>(nullable: false),
+                    FromDate = table.Column<DateTime>(nullable: false),
+                    ToDate = table.Column<DateTime>(nullable: false),
                     PromoId = table.Column<Guid>(nullable: false),
-                    Notes = table.Column<string>(unicode: false, maxLength: 500, nullable: true),
+                    Notes = table.Column<string>(nullable: true),
                     CreatedBy = table.Column<Guid>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
                     UpdatedBy = table.Column<Guid>(nullable: false),
-                    UpdateOn = table.Column<DateTime>(type: "datetime", nullable: false)
+                    UpdateOn = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_Reservation", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -192,10 +171,10 @@ namespace Persistence.Migrations
                     ReservationId = table.Column<Guid>(nullable: false),
                     InventoryId = table.Column<Guid>(nullable: false),
                     InventoryCategoryId = table.Column<Guid>(nullable: false),
-                    Price = table.Column<decimal>(type: "money", nullable: false),
+                    Price = table.Column<decimal>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
                     DiscountId = table.Column<Guid>(nullable: true),
-                    TotalPrice = table.Column<decimal>(type: "money", nullable: false),
+                    TotalPrice = table.Column<decimal>(nullable: false),
                     PromoId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
@@ -211,10 +190,11 @@ namespace Persistence.Migrations
                     ReservationId = table.Column<Guid>(nullable: false),
                     TableId = table.Column<Guid>(nullable: false),
                     RoomId = table.Column<Guid>(nullable: false),
-                    status = table.Column<byte>(nullable: false)
+                    Status = table.Column<byte>(nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_ReservationTable", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -224,15 +204,16 @@ namespace Persistence.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     CompanyId = table.Column<Guid>(nullable: false),
                     OutletId = table.Column<Guid>(nullable: true),
-                    RoleName = table.Column<string>(unicode: false, maxLength: 20, nullable: true),
+                    RoleName = table.Column<string>(nullable: true),
                     IsActive = table.Column<byte>(nullable: true),
                     CreatedBy = table.Column<Guid>(nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: true),
                     UpdatedBy = table.Column<Guid>(nullable: true),
-                    UpdatedOn = table.Column<DateTime>(type: "datetime", nullable: true)
+                    UpdatedOn = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_Role", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -240,10 +221,30 @@ namespace Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    ModuleName = table.Column<string>(unicode: false, maxLength: 50, nullable: false)
+                    ModuleName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_RoleModule", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Table",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CompanyId = table.Column<Guid>(nullable: true),
+                    RoomId = table.Column<Guid>(nullable: true),
+                    SubRoomId = table.Column<Guid>(nullable: true),
+                    OutletId = table.Column<Guid>(nullable: true),
+                    CreatedBy = table.Column<Guid>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: true),
+                    UpdatedBy = table.Column<Guid>(nullable: true),
+                    UpdatedOn = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Table", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -251,36 +252,40 @@ namespace Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    PhoneNumber = table.Column<string>(unicode: false, maxLength: 12, nullable: true),
-                    Email = table.Column<string>(unicode: false, maxLength: 100, nullable: false),
-                    Name = table.Column<string>(unicode: false, maxLength: 100, nullable: false),
-                    Password = table.Column<string>(unicode: false, maxLength: 50, nullable: false),
-                    Pin = table.Column<string>(unicode: false, maxLength: 6, nullable: true),
-                    Notes = table.Column<string>(unicode: false, maxLength: 500, nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true),
+                    Pin = table.Column<string>(nullable: true),
+                    Notes = table.Column<string>(nullable: true),
                     CreatedBy = table.Column<Guid>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
                     UpdatedBy = table.Column<Guid>(nullable: false),
-                    UpdatedOn = table.Column<DateTime>(type: "datetime", nullable: false)
+                    UpdatedOn = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_User", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "UserOutlet",
                 columns: table => new
                 {
+                    Id = table.Column<Guid>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false),
                     OutletId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_UserOutlet", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "UserRole",
                 columns: table => new
                 {
+                    Id = table.Column<Guid>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false),
                     CompanyId = table.Column<Guid>(nullable: false),
                     OutletId = table.Column<Guid>(nullable: false),
@@ -288,7 +293,70 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_UserRole", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "OrderTable",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    OrderId = table.Column<Guid>(nullable: false),
+                    RoomId = table.Column<Guid>(nullable: false),
+                    TableId = table.Column<Guid>(nullable: false),
+                    Status = table.Column<byte>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderTable", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderTable_Order_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Order",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderTable_Table_TableId",
+                        column: x => x.TableId,
+                        principalTable: "Table",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TableDetail",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    TableId = table.Column<Guid>(nullable: true),
+                    Status = table.Column<byte>(nullable: true),
+                    ChairNumbers = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TableDetail", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TableDetail_Table_TableId",
+                        column: x => x.TableId,
+                        principalTable: "Table",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderTable_OrderId",
+                table: "OrderTable",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderTable_TableId",
+                table: "OrderTable",
+                column: "TableId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TableDetail_TableId",
+                table: "TableDetail",
+                column: "TableId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -303,9 +371,6 @@ namespace Persistence.Migrations
                 name: "InventoryCategory");
 
             migrationBuilder.DropTable(
-                name: "Order");
-
-            migrationBuilder.DropTable(
                 name: "OrderDeduction");
 
             migrationBuilder.DropTable(
@@ -313,9 +378,6 @@ namespace Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "OrderTable");
-
-            migrationBuilder.DropTable(
-                name: "OrderType");
 
             migrationBuilder.DropTable(
                 name: "Reservation");
@@ -333,6 +395,9 @@ namespace Persistence.Migrations
                 name: "RoleModule");
 
             migrationBuilder.DropTable(
+                name: "TableDetail");
+
+            migrationBuilder.DropTable(
                 name: "User");
 
             migrationBuilder.DropTable(
@@ -340,6 +405,12 @@ namespace Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserRole");
+
+            migrationBuilder.DropTable(
+                name: "Order");
+
+            migrationBuilder.DropTable(
+                name: "Table");
         }
     }
 }

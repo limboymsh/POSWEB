@@ -17,5 +17,6 @@ namespace Domain.Entities
         public Guid CreatedBy { get; set; }
         public DateTime UpdatedOn { get; set; }
         public Guid UpdatedBy { get; set; }
+        public List<Inventory> Inventory { get; set; }
     }
 }

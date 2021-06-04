@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Threading;
@@ -15,12 +16,19 @@ namespace Application.Common.Interfaces
         DbSet<OrderDeduction> OrderDeduction { get; set; }
         DbSet<OrderDetail> OrderDetail { get; set; }
         DbSet<OrderTable> OrderTable { get; set; }
-        DbSet<OrderType> OrderType { get; set; }
+        DbSet<OtherTransaction> OtherTransaction { get; set; }
         DbSet<Reservation> Reservation { get; set; }
         DbSet<ReservationDetail> ReservationDetail { get; set; }
         DbSet<ReservationTable> ReservationTable { get; set; }
         DbSet<Role> Role { get; set; }
         DbSet<RoleModule> RoleModule { get; set; }
+        DbSet<Table> Table { get; set; }
+        DbSet<TableDetail> TableDetail { get; set; }
+        DbSet<Transaction> Transaction { get; set; }
+        DbSet<TransactionDetail> TransactionDetail { get; set; }
+        DbSet<TransactionDetailDiscount> TransactionDetailDiscount { get; set; }
+        DbSet<TransactionDetailPromos> TransactionDetailPromos { get; set; }
+        DbSet<TransactionExtraCost> TransactionExtraCost { get; set; }
         DbSet<User> User { get; set; }
         DbSet<UserOutlet> UserOutlet { get; set; }
         DbSet<UserRole> UserRole { get; set; }

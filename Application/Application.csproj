@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Handlers\InventoryAdjustments\Queries\GetInventoryById.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.15" />
@@ -18,7 +23,10 @@
 
   <ItemGroup>
     <Folder Include="Handlers\Auth\commands\" />
+    <Folder Include="Handlers\InventoryAdjustments\Commands\" />
     <Folder Include="Handlers\Inventories\Commands\" />
+    <Folder Include="Handlers\Transactions\Commands\" />
+    <Folder Include="Handlers\Orders\Commands\" />
     <Folder Include="Handlers\NewFolder\Commands\" />
     <Folder Include="Handlers\NewFolder\Queries\" />
   </ItemGroup>

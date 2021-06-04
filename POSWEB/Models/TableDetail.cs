@@ -5,11 +5,13 @@ using System.Collections.Generic;
 // If you have enabled NRTs for your project, then un-comment the following line:
 // #nullable disable
 
-namespace Domain.Entities
+namespace WebUI.Models
 {
-    public partial class OrderType
+    public partial class TableDetail
     {
-        public Guid? Id { get; set; }
-        public string Name { get; set; }
+        public Guid Id { get; set; }
+        public Guid? TableId { get; set; }
+        public byte? Status { get; set; }
+        public int? ChairNumbers { get; set; }
     }
 }
