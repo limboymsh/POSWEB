@@ -1,5 +1,6 @@
 ﻿using Application.Handlers.InventoryCategories.Queries;
 using Application.Handlers.Orders.Queries;
+using Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -48,7 +49,7 @@ namespace WebUI.Controllers
         }
 
         [HttpGet("GetOrdersByOutletAndOrderType")]
-        public async Task<IActionResult> GetOrdersByOutletAndOrderType([FromQuery]Guid outletId, [FromQuery]int orderType)
+        public async Task<IActionResult> GetOrdersByOutletAndOrderType([FromQuery]Guid outletId, [FromQuery]OrderType orderType)
         {
             var response = await mediator.Send(new GetOrdersByOutletAndByOrderType.Query { OutletId = outletId, OrderType = orderType});
             return Ok(response);

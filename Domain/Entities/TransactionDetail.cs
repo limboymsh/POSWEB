@@ -9,7 +9,7 @@ namespace Domain.Entities
 {
     public partial class TransactionDetail
     {
-        public Guid? Id { get; set; }
+        public Guid Id { get; set; }
         public Guid? TransactionId { get; set; }
         public Guid? InventoryId { get; set; }
         public Guid? PromoId { get; set; }

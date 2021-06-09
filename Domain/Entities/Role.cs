@@ -13,7 +13,7 @@ namespace Domain.Entities
         public Guid CompanyId { get; set; }
         public Guid? OutletId { get; set; }
         public string RoleName { get; set; }
-        public byte? IsActive { get; set; }
+        public bool IsActive { get; set; }
         public Guid? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }
         public Guid? UpdatedBy { get; set; }

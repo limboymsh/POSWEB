@@ -32,6 +32,7 @@ namespace Application.Handlers.Inventories.Queries
             public async Task<IEnumerable<InventoryModel>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var inventories = await repo.GetInventoriesByOutlet(request.OutletId);
+                
                 var resources = mapper.Map<IEnumerable<Inventory>, IEnumerable<InventoryModel>>(inventories);
                 return resources;
                 

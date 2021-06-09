@@ -13,8 +13,8 @@ namespace Domain.Entities
         public Guid OrderId { get; set; }
         public int Quantity { get; set; }
         public decimal TotalPrice { get; set; }
+
         public Guid InventoryId { get; set; }
         public Inventory Inventory { get; set; }
-       
     }
 }

@@ -1,11 +1,7 @@
 ﻿using Application.Handlers.Users.Queries;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace WebUI.Controllers
@@ -26,6 +22,13 @@ namespace WebUI.Controllers
         public async Task<IActionResult> GetUsers()
         {
             var response = await mediator.Send(new GetUsers.GetUsersQuery());
+            return Ok(response);
+        }
+
+        [HttpGet("getUserByEmailPass")]
+        public async Task<IActionResult> GetUsersdata([FromQuery]string email, [FromQuery] string pass)
+        {
+            var response = await mediator.Send(new GetUserQuery { Email = email, Password = pass });
             return Ok(response);
         }
 

@@ -1,27 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Application.Handlers.Inventories.Commands.Create;
 using Application.Handlers.Inventories.Queries;
-using Application.Handlers.InventoryAdjustments.Queries;
+using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Application.Utils;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebUI.Controllers
 {
-    //[Authorize]
-    [Route("api/[controller]")]
-    [ApiController]
-    public class InventoryController : ControllerBase
+
+    [Authorize]
+    public class InventoryController : BaseController
     {
         private readonly IMediator mediator;
-        public InventoryController(IMediator mediator)
+        private readonly IMapper mapper;
+
+        public InventoryController(IMediator mediator, IMapper mapper)
         {
             this.mediator = mediator;
+            this.mapper = mapper;
         }
 
+        #region GET
         [HttpGet("getById")]
         public async Task<IActionResult> Get([FromQuery]Guid id)
         {
@@ -37,10 +40,21 @@ namespace WebUI.Controllers
         }
 
         [HttpGet("GetByCompany")]
-        public async Task<IActionResult> GetByCompany(Guid companyId)
+        public async Task<IActionResult> GetByCompany([BindRequired]Guid companyId)
         {
             var response = await mediator.Send(new GetInventoriesByCompany.Query { CompanyId = companyId });
             return Ok(response);
         }
+
+        #endregion
+
+        #region Create
+        [HttpPost("createInventory")]
+        public async Task<IActionResult> CreateIntentory([FromBody] CreateInventoryDTO inventory)
+        {
+            return Ok(await mediator.Send(mapper.Map<CreateInventoryDTO, CreateInventoryCommand>(inventory,
+                opts => opts.InjectAuthrizationUserOnly(UserData))));
+        }
+        #endregion
     }
 }

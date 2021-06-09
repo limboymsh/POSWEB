@@ -2,6 +2,7 @@
 using Application.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using Domain.Enums;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace Application.Handlers.Orders.Queries
     public class Query : IRequest<IEnumerable<OrderModel>>
     {
         public Guid OutletId { get; set; }
-        public int OrderType { get; set; }
+        public OrderType OrderType { get; set; }
     }
 
         public class Handler : IRequestHandler<Query, IEnumerable<OrderModel>>

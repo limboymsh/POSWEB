@@ -1,5 +1,6 @@
 ﻿using Application.Common.Interfaces;
 using Domain.Entities;
+using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace Application.Repositories
         }
 
         // Get order by outlet & by type
-        public async Task<IEnumerable<Order>> getOrdersByOutletAndByOrderType(Guid outletId, int orderType)
+        public async Task<IEnumerable<Order>> getOrdersByOutletAndByOrderType(Guid outletId, OrderType orderType)
         {
             return await dbContext.Order.Include(x => x.OrderTable).Where(x => x.OutletId == outletId && x.OrderTypeId == orderType).ToListAsync();
         }

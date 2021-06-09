@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using WebUI.Services.Interfaces;
 using WebUI.DTO;
 using System;
+using WebUI.Services;
 
 namespace WebUI.Controllers
 {
@@ -13,11 +13,11 @@ namespace WebUI.Controllers
 
     public class AuthController : ControllerBase
     {
-        private readonly IJwtAuthenticationManager jwtAuthenticationManager;
+        private readonly IAuthService authService;
 
-        public AuthController(IJwtAuthenticationManager jwtAuthenticationManager)
+        public AuthController(IAuthService authService)
         {
-            this.jwtAuthenticationManager = jwtAuthenticationManager;
+            this.authService = authService;
         }
 
         [AllowAnonymous]
@@ -34,10 +34,8 @@ namespace WebUI.Controllers
         {
             try
             {
-                var token = await jwtAuthenticationManager.authenticate(userCred);
-
+                var token = await authService.GetAccessTokenAsync(userCred);
                 return Ok(token);
-
             }
             catch (Exception ex)
             {

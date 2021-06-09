@@ -1,11 +1,11 @@
 ﻿using Application.Common.Interfaces;
-using Application.Repositories.Response;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Application.Repositories
@@ -16,7 +16,7 @@ namespace Application.Repositories
         {
             
         }
-        // Inventory
+        #region Inventory
         // Get inventory by id
         public async Task<Inventory> GetInventoryById(Guid id)
         {
@@ -38,8 +38,30 @@ namespace Application.Repositories
             return inventories;
         }
 
+        public async Task<Inventory> CreateInventory(Inventory inventory, CancellationToken cancellationToken)
+        {
+                Console.WriteLine(inventory.Name);
+            try
+            {
+                await dbContext.BeginTransaction();
+                await dbContext.Inventory.AddAsync(inventory,cancellationToken);
+                await dbContext.SaveChangesAsync(cancellationToken);
+                dbContext.CommitTransaction();
+                return inventory;
+            } catch (Exception e)
+            {
+                Console.WriteLine(e);
+                dbContext.RollbackTransaction();
+                throw;
+            }
 
-        // Inventory Category
+        }
+
+
+
+        #endregion
+
+        #region Inventory Category
         // Get inventory category by id
         public async Task<InventoryCategory> GetInventoryCategoryById(Guid id)
         {
@@ -50,9 +72,9 @@ namespace Application.Repositories
         {
             return await dbContext.InventoryCategory.Where(i => i.Id == outletId).Include(i =>i.Inventory).ToListAsync();
         }
+        #endregion
 
-
-        // Inventory Adjustment
+        #region Inventory Adjustment
         // Get all inventory adjustment
         public async Task<IEnumerable<InventoryAdjustment>> GetInventoryAdjustments()
         {
@@ -69,6 +91,8 @@ namespace Application.Repositories
         {
             return await dbContext.InventoryAdjustment.Where(i => i.Id == outletId).ToListAsync();
         }
-        
+
+        #endregion
+
     }
 }

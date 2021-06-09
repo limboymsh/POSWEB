@@ -28,10 +28,9 @@ namespace Application.Handlers.Inventorycategories.Commands.CreateInventoryCateg
             {
                 try
                 {
-                    await context.BeginTransactionAsync();
                     await context.InventoryCategory.AddAsync(request.Category);
 
-                    await context.CommitTransactionAsync();
+                    
                     return new SaveCategoryResponse(true, "Berhasil Menyimpan.", request.Category);
                 }
                 catch (Exception ex)

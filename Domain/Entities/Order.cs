@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Enums;
+using System;
 using System.Collections.Generic;
 
 // Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
@@ -11,7 +12,7 @@ namespace Domain.Entities
     {
         public Guid Id { get; set; }
         public Guid? CompanyId { get; set; }
-        public byte? OrderTypeId { get; set; }
+        public OrderType OrderTypeId { get; set; }
         public Guid? OutletId { get; set; }
         public Guid? ReservationId { get; set; }
         public Guid? OtherTransactionId { get; set; }
@@ -31,9 +32,8 @@ namespace Domain.Entities
         public Guid? UpdatedBy { get; set; }
         public DateTime? UpdatedOn { get; set; }
 
+        public IList<OrderTable> OrderTable { get; set; }
         public IList<OrderDetail> OrderDetail { get; set; }
-        public virtual IList<OrderTable> OrderTable { get; set; }
-        public virtual OrderDeduction OrderDeduction{ get; set; }
-
+        public OrderDeduction OrderDeduction { get; set; }
     }
 }

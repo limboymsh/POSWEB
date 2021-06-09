@@ -24,6 +24,6 @@ namespace Domain.Entities
         public DateTime UpdatedOn { get; set; }
 
         public Guid InventoryCategoryId { get; set; }
-        public InventoryCategory InventoryCategory { get; set;  }
+        public InventoryCategory InventoryCategory { get; set; }
     }
 }

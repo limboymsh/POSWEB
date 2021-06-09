@@ -14,8 +14,5 @@ namespace Domain.Entities
         public Guid RoomId { get; set; }
         public Guid TableId { get; set; }
         public byte Status { get; set; }
-
-        public virtual Order Order { get; set; }
-        public virtual Table Table { get; set; }
     }
 }

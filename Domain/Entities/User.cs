@@ -20,5 +20,6 @@ namespace Domain.Entities
         public DateTime CreatedOn { get; set; }
         public Guid UpdatedBy { get; set; }
         public DateTime UpdatedOn { get; set; }
+        public UserRole UserRole { get; set; }
     }
 }

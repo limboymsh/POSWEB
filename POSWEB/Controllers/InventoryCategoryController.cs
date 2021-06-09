@@ -1,21 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Application.Handlers.Inventorycategories.Commands.CreateInventoryCategory;
 using Application.Handlers.InventoryCategories.Queries;
-using Application.Handlers.Orders.Queries;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebUI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class InventoryCategoryController : ControllerBase
+    public class InventoryCategoryController : Controller
     {
 
         private readonly IMediator mediator;
@@ -48,6 +44,6 @@ namespace WebUI.Controllers
             var response = await mediator.Send(new CreateInventoryCategoryCommand { Category = category });
             return Ok(response);
         }
-
+        
     }
 }

@@ -9,12 +9,6 @@ namespace Domain.Entities
 {
     public partial class Table
     {
-        public Table()
-        {
-            OrderTable = new HashSet<OrderTable>();
-            TableDetail = new HashSet<TableDetail>();
-        }
-
         public Guid Id { get; set; }
         public Guid? CompanyId { get; set; }
         public Guid? RoomId { get; set; }
@@ -24,8 +18,5 @@ namespace Domain.Entities
         public DateTime? CreatedOn { get; set; }
         public Guid? UpdatedBy { get; set; }
         public DateTime? UpdatedOn { get; set; }
-
-        public virtual ICollection<OrderTable> OrderTable { get; set; }
-        public virtual ICollection<TableDetail> TableDetail { get; set; }
     }
 }

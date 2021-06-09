@@ -13,7 +13,5 @@ namespace Domain.Entities
         public Guid? TableId { get; set; }
         public byte? Status { get; set; }
         public int? ChairNumbers { get; set; }
-
-        public virtual Table Table { get; set; }
     }
 }

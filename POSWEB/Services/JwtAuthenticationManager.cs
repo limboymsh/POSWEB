@@ -55,9 +55,9 @@ namespace WebUI.Services
             var tokenKey = Encoding.ASCII.GetBytes(appSetting.AuthenticationKey);
             var tokenDescriptor = new SecurityTokenDescriptor()
             {
-                Subject = new ClaimsIdentity(new Claim[] {
-                    new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(ClaimTypes.Role, "Cashier")
+                Subject = new ClaimsIdentity(new System.Security.Claims.Claim[] {
+                    new System.Security.Claims.Claim(ClaimTypes.Email, user.Email),
+                    new System.Security.Claims.Claim(ClaimTypes.Role, "Cashier")
                 }),
                 SigningCredentials =
                 new SigningCredentials(
